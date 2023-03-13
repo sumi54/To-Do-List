@@ -20,6 +20,7 @@ function addTodo(e) {
 
     } else {
         addTodoToUI(newTodo);
+        addTodoStorage(newTodo);
         showAlert("success", "To Do başarıyla oluşturuldu.")
     }
 
@@ -33,10 +34,23 @@ function showAlert(type, message) {
     firstCardBody.appendChild(alert);
     setTimeout(function () {
             alert.remove();      
-    },2000);
-    
+    },1500);
 }
-
+function getTodosFromStorage(){
+    let todos;
+    if(localStorage.getItem("todos")===null){
+        todos=[];
+    }
+    else{
+        todos=JSON.parse(localStorage.getItem("todos"));
+    }
+    return todos;
+}
+function addTodoStorage(newTodo){
+    let todos =getTodosFromStorage();
+    todos.push(newTodo);
+    localStorage.setItem("todos",JSON.stringify(todos));
+}
 function addTodoToUI(newTodo) {
     // < li class = "list-group-item d-flex justify-content-between" >
     //     Todo 1 < ------------------------------------------------------------>>TEXT NODE
