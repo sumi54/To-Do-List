@@ -10,6 +10,7 @@ eventListeners();
 
 function eventListeners() {
     form.addEventListener("submit", addTodo);
+    document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
 }
 
 function addTodo(e) {
@@ -36,7 +37,7 @@ function showAlert(type, message) {
             alert.remove();      
     },1500);
 }
-function getTodosFromStorage(){
+function getTodosFromStorage(){//storageden todoları alma
     let todos;
     if(localStorage.getItem("todos")===null){
         todos=[];
@@ -50,6 +51,13 @@ function addTodoStorage(newTodo){
     let todos =getTodosFromStorage();
     todos.push(newTodo);
     localStorage.setItem("todos",JSON.stringify(todos));
+}
+
+function loadAllTodosToUI(){
+    let todos=getTodosFromStorage();
+    todos.forEach(function(todo){
+        addTodoToUI(todo);
+    })
 }
 function addTodoToUI(newTodo) {
     // < li class = "list-group-item d-flex justify-content-between" >
