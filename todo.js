@@ -11,8 +11,16 @@ eventListeners();
 function eventListeners() {
     form.addEventListener("submit", addTodo);
     document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
+    secondCardBody.addEventListener("click",deleteTodo);
+    filter.addEventListener("keyup",filterTodos);
 }
-
+function deleteTodo(e){
+    if(e.target.className === "fa fa-remove"){
+        e.target.parentElement.parentElement.remove();
+        deleteTodoFromStorage(e.target.parentElement.parentElement.textContent);
+        showAlert("success","To Do başarıyla silindi.");
+    }
+}
 function addTodo(e) {
     let newTodo = todoinput.value.trim();
 
@@ -26,6 +34,15 @@ function addTodo(e) {
     }
 
     e.preventDefault();
+}
+function deleteTodoFromStorage(deletetodo){
+    let todos=getTodosFromStorage();
+    todos.forEach(function(todo,index){
+        if(todo===deletetodo){
+            todos.splice(index,1); //arrayden değer silme
+        }
+    });
+    localStorage.setItem("todos",JSON.stringify(todos));
 }
 //alert oluşturma
 function showAlert(type, message) {
