@@ -14,8 +14,27 @@ function eventListeners() {
 
 function addTodo(e) {
     let newTodo = todoinput.value.trim();
-    addTodoToUI(newTodo);
+
+    if (newTodo == "") {
+        showAlert("danger", "Bir To Do yazınız.")
+
+    } else {
+        addTodoToUI(newTodo);
+        showAlert("success", "To Do başarıyla oluşturuldu.")
+    }
+
     e.preventDefault();
+}
+//alert oluşturma
+function showAlert(type, message) {
+    let alert = document.createElement("div")
+    alert.className = `alert alert-${type} `;
+    alert.textContent = message;
+    firstCardBody.appendChild(alert);
+    setTimeout(function () {
+            alert.remove();      
+    },2000);
+    
 }
 
 function addTodoToUI(newTodo) {
@@ -29,12 +48,12 @@ function addTodoToUI(newTodo) {
 
     //     <
     //     /li>
-    let listItem=document.createElement("li");
-    let link=document.createElement("a");
-    link.href="#";
-    link.className="delete-item";
-    link.innerHTML="<i class='fa fa-remove'></i>";
-    listItem.className="list-group-item d-flex justify-content-between";
+    let listItem = document.createElement("li");
+    let link = document.createElement("a");
+    link.href = "#";
+    link.className = "delete-item";
+    link.innerHTML = "<i class='fa fa-remove'></i>";
+    listItem.className = "list-group-item d-flex justify-content-between";
     //Text Node ekleme
     listItem.appendChild(document.createTextNode(newTodo));
     listItem.appendChild(link);
