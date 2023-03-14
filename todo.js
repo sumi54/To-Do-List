@@ -22,6 +22,7 @@ function clearAll(e){
             todolist.removeChild(todolist.firstElementChild);
         }
         localStorage.removeItem("todos");
+        showAlert("success", "To Do'lar başarıyla silindi.");
     }
 }
 function filterTodos(e) {
